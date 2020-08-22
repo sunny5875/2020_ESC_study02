@@ -10,19 +10,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 /*
 * data class와 recyclerView adapter를 만들 것임
 * */
 
+//json에서 받아온 변수명과 인스턴스 변수의 이름이 같아야 하므로 같게 바꿔준다.
 data class Movie(
     val title: String,
     val popularity: Double,
-    val description: String,
-    val openDate: String,
+    val overview: String,
+    val release_date: String,
     //drawable에서 이미지 가져올려면 int여야 한다.
-    val posterUrl: Int
+    val poster_path: String
 )
+
+
+//[]로 묶여이쓴 이름으로 클래스르 만들어야 한다.
+data class MovieList(
+    val result: ArrayList<Movie>
+)
+
+
 //상속 대신 : 을 넣어 표현
 //즉 , recylerView를 상속받고 있음
 
@@ -63,11 +73,12 @@ class MovieAdapter(val context: Context, val movieList: ArrayList<Movie>) : Recy
 
         //데이터를 셀의 레이아웃에 알맞게 넣어주는 역할
         fun bind(movie : Movie){
-            imgPoster.setImageResource(movie.posterUrl)
+            //imgPoster.setImageResource(movie.poster_path)
+            Glide.with(context).load("https://image.tmdb.org/t/p/w500"+movie.poster_path).into(imgPoster)
             tvTitle.text=movie.title
-            tvDescription.text="설명 : "+movie.description
+            tvDescription.text="설명 : "+movie.overview
             tvPopularity.text="인기도 : "+ movie.popularity
-            tvOpenDate.text="개봉일 : "+movie.openDate
+            tvOpenDate.text="개봉일 : "+movie.release_date
 
 
             //container를 눌렀을 떄 토스트 메세지가 나오도록 만든 코드
