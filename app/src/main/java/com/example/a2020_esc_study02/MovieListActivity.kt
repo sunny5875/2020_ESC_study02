@@ -50,7 +50,7 @@ class MovieListActivity : AppCompatActivity() {
         var gson: Gson = Gson()
         //api 주소 선언
         var url =
-            "https://api.themoviedb.org/3/movie/now_playing" + "api_key=0dd5f4034d5d90f69d2da2015f4791b6" + "&language=ko-KR" + "&region=KR"
+            "https://api.themoviedb.org/3/movie/now_playing?" + "api_key=0dd5f4034d5d90f69d2da2015f4791b6" + "&language=ko-KR" + "&region=KR"
 
         //api 호출
         val request = JsonObjectRequest(Request.Method.GET, url, null,
@@ -62,12 +62,12 @@ class MovieListActivity : AppCompatActivity() {
                 try {
                     //response가 정상적으로 넘어온 경우
                    //json 데이터를 movielist data classs로 변형
-                    Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show()
 
                     val data : MovieList = gson.fromJson<MovieList>(response.toString(),MovieList::class.java)
 
                     //adapter 선언
-                    val adapter = MovieAdapter(this, data.result)
+                    val adapter = MovieAdapter(this, data.results)
                     //recyclerview에 만든 adapter를 세팅
                     movieRecycler.adapter = adapter
 

@@ -29,7 +29,7 @@ data class Movie(
 
 //[]로 묶여이쓴 이름으로 클래스르 만들어야 한다.
 data class MovieList(
-    val result: ArrayList<Movie>
+    val results: ArrayList<Movie>
 )
 
 
@@ -73,11 +73,18 @@ class MovieAdapter(val context: Context, val movieList: ArrayList<Movie>) : Recy
 
         //데이터를 셀의 레이아웃에 알맞게 넣어주는 역할
         fun bind(movie : Movie){
+            val overview: String
+            if(movie.overview.length>21){
+                overview = movie.overview.slice(IntRange(0,20))+"..."
+            }
+            else{
+                overview=movie.overview
+            }
             //imgPoster.setImageResource(movie.poster_path)
             Glide.with(context).load("https://image.tmdb.org/t/p/w500"+movie.poster_path).into(imgPoster)
             tvTitle.text=movie.title
-            tvDescription.text="설명 : "+movie.overview
             tvPopularity.text="인기도 : "+ movie.popularity
+            tvDescription.text="설명 : "+movie.overview
             tvOpenDate.text="개봉일 : "+movie.release_date
 
 
