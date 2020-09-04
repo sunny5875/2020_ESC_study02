@@ -84,7 +84,7 @@ class MovieAdapter(val context: Context, val movieList: ArrayList<Movie>) : Recy
             Glide.with(context).load("https://image.tmdb.org/t/p/w500"+movie.poster_path).into(imgPoster)
             tvTitle.text=movie.title
             tvPopularity.text="인기도 : "+ movie.popularity
-            tvDescription.text="설명 : "+movie.overview
+            tvDescription.text="설명 : "+ overview
             tvOpenDate.text="개봉일 : "+movie.release_date
 
 
